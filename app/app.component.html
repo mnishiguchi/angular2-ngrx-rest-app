@@ -1,0 +1,29 @@
+<!--
+  This is the root component.
+ -->
+
+<!-- Top navbar -->
+<header id="header">
+  <h1 id="logo">
+    <a [routerLink]="['/Home']"></a>
+  </h1>
+
+  <div id="menu">
+    <a [routerLink]="['/Home']" class="btn">Home</a>
+    <a [routerLink]="['/About']" class="btn">About</a>
+    <a [routerLink]="['/Experiments']" class="btn">Experiments</a>
+  </div>
+
+  <div class="color"></div>
+  <div class="clear"></div>
+</header>
+
+<!-- Divider between top navbar and the page content -->
+<div class="shadow"></div>
+
+<!-- Page content -->
+<div id="container">
+
+  <router-outlet></router-outlet>
+
+</div>
