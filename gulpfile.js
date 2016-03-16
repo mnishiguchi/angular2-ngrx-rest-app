@@ -69,13 +69,14 @@ gulp.task( "ts2js", function() {
  */
 gulp.task( "vendor", function() {
   return gulp.src([
-      'es6-shim/es6-shim.min.js',
-      'systemjs/dist/system-polyfills.js',
-      'angular2/bundles/angular2-polyfills.js',
+      'es6-shim/es6-shim.*',
+      'systemjs/dist/system-polyfills.*',
+      'angular2/bundles/angular2-polyfills.*',
       'systemjs/dist/system.src.js',
       'rxjs/bundles/Rx.js',
       'angular2/bundles/angular2.dev.js',
-      'angular2/bundles/router.dev.js'
+      'angular2/bundles/router.dev.js',
+      '@ngrx/store/dist/*'
     ],
     { cwd: "node_modules/**" })
     .pipe( gulp.dest( "build/vendor" ) );
