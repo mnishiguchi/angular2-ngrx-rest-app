@@ -1,7 +1,8 @@
+import { provideStore }    from '@ngrx/store';
 import { Reducer, Action } from '@ngrx/store';
 import { Injectable }      from 'angular2/core';
 import { Observable }      from 'rxjs/Observable';
-import { Item }            from './app.component';
+import { Item }            from './models/item.model';
 
 
 /*
@@ -20,11 +21,13 @@ Benefits of using Redux:
 
 
 /**
- *
+ * The immutable data store of this app.
  */
 export interface AppStore {
-  items: Item[];
-  selectedItem: Item;
+
+  items:Item[];
+  selectedItem:Item;
+
 }
 
 
@@ -45,43 +48,71 @@ export interface AppStore {
 
 
 /**
- * Perform actions on our list of items.
+ * A reducer to perform actions on our list of items.
  */
-export const items: Reducer<any> = ( state: any, { type, payload } ) => {
+export const items:Reducer<any> = ( state:any, { type, payload } ) => {
+
   switch ( type ) {
+
     // Returns whatever collection we pass in as the new array.
     case 'ADD_ITEMS':
       return payload;
+
     // Returns a new array by concatenating the existing items with the new item.
     case 'CREATE_ITEM':
       return [ ...state, payload ];
-    // Returns a new array bu mapping through the current array, finding the item
+
+    // Returns a new array by mapping through the current array, finding the item
     // we want to update and cloning a new object using Object.assign.
     case 'UPDATE_ITEM':
       return state.map( item => {
         return ( item.id === payload )
-                ? (<any>Object).assign( {}, item, payload )
+                ? Object.assign( {}, item, payload )
                 : item
                 ;
       });
+
     // Returns a new array by filtering out the item that we want to delete.
     case 'DELETE_ITEM':
       return state.filter( item => {
         return item.id !== payload.id;
       });
+
     default:
       return state;
   }
 };
 
 /**
- * Handle the currently selected item.
+ * A reducer to handle the currently selected item.
  */
-export const selectedItem: Reducer<any> = ( state: any = null, { type, payload } ) => {
+export const selectedItem:Reducer<any> = ( state:any=null, { type, payload } ) => {
+
   switch ( type ) {
+
     case 'SELECTED_ITEM':
       return payload;
+
     default:
       return state;
   }
+
 };
+
+
+//============================================
+//  Create a Provider to register store and reducers.
+//============================================
+
+
+// Use the provideStore(reducers, initialState) function to create a Provider to
+// to provide store and its reducers to Angular's injector.
+// NOTE: Make sure that we inject STORE into Angular's injector in main.ts.
+let reducers = { items, selectedItem };
+let initialState = {
+  items:        null,
+  selectedItem: []
+};
+
+export const STORE = provideStore( reducers, initialState );
+

@@ -1,8 +1,12 @@
 # angular2-ngrx-rest-app
 
-Based on the tutorial
-[Build a Better Angular 2 Application with Redux and ngrx](http://onehungrymind.com/build-better-angular-2-application-redux-ngrx/)
-by Lukas Ruebbelke
+- Built upon [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter) by AngularClass.
+- Based on the tutorials:
+    + [Build a Better Angular 2 Application with Redux and ngrx](http://onehungrymind.com/build-better-angular-2-application-redux-ngrx/)
+    by Lukas Ruebbelke
+    + [Adding Redux with NgRx/Store to Angular 2](http://orizens.com/wp/topics/adding-redux-with-ngrxstore-to-angular-2-part-1/) by Oren Farhi
+
+==
 
 ## Check for the latest recommended configuration
 - https://angular.io/docs/ts/latest/quickstart.html
@@ -13,39 +17,44 @@ by Lukas Ruebbelke
 .
 ├── LICENSE
 ├── README.md
-├── bs-config.json
-├── build
-│   ├── app
-│   │   ├── app.component.js
-│   │   ├── app.component.js.map
-│   │   ├── main.js
-│   │   └── main.js.map
-│   ├── index.html
-│   └── vendor
-│       ├── angular2
-│       ├── es6-shim
-│       ├── rxjs
-│       └── systemjs
-├── gulpfile.js
+├── helpers.js
+├── karma.conf.js
 ├── node_modules
 ├── package.json
+├── protractor.conf.js
+├── spec-bundle.js
 ├── src
 │   ├── app
-│   │   ├── app.component.ts
-│   │   └── main.ts
-│   └── index.html
+│   │   ├── app.ts
+│   │   ├── components
+│   │   ├── directives
+│   │   ├── models
+│   │   ├── services
+│   │   └── store.ts
+│   ├── assets
+│   │   ├── css
+│   │   ├── data.json
+│   │   ├── humans.txt
+│   │   ├── img
+│   │   ├── manifest.json
+│   │   ├── robots.txt
+│   │   └── service-worker.js
+│   ├── custom-typings.d.ts
+│   ├── index.html
+│   ├── main.ts
+│   ├── polyfills.ts
+│   └── vendor.ts
 ├── tsconfig.json
+├── tslint.json
+├── typedoc.json
 ├── typings
-│   ├── browser
-│   │   └── ambient
-│   ├── browser.d.ts
-│   ├── main
-│   │   └── ambient
-│   └── main.d.ts
-└── typings.json
-
-118 directories, 219 files
+├── typings.json
+├── webpack.config.js
+├── webpack.prod.config.js
+└── webpack.test.config.js
 ```
+
+==
 
 ## Troubleshooting
 
@@ -83,7 +92,5 @@ export class ItemDetails {
 }
 ```
 
-## All the files must be loaded 200 OK
-- Check index.html
-- Check gulpfile
+
  

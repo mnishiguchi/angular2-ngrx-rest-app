@@ -1,8 +1,9 @@
-import { Store }        from '@ngrx/store';
 import { Injectable }   from 'angular2/core';
+import { Store }        from '@ngrx/store';
 import { Observable }   from 'rxjs/Observable';
-import { Item }         from './app.component'
-import { AppStore }     from './app.store';
+
+import { Item }         from '../models/item.model';
+import { AppStore }     from '../store';
 
 
 /**
