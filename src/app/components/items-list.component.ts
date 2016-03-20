@@ -14,24 +14,40 @@ import { Item } from '../models/item.model';
  */
 @Component({
   selector: 'ItemsList',
+  styles: [`
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      cursor: pointer;
+    }
+    .card-title, .card-text {
+      overflow: auto;
+    }
+  `],
   template: `
-    <div *ngFor="#item of items" class="card card-block">
+    <ul>
+      <li
+        *ngFor="#item of items"
+        (click)="selected.emit(item);"
+        class="card card-block"
+        id="item-card">
 
-      <h2 class="card-title">
-        {{ item.name }}
-      </h2>
+        <h4 class="card-title">
+          {{ item.name }}
+        </h4>
 
-      <p class="card-text">
-        {{ item.description }}
-      </p>
+        <p class="card-text">
+          {{ item.description }}
+        </p>
 
-      <a
-        (click)="deleted.emit(item); $event.stopPropagation();"
-        class="btn btn-secondary">
-        Delete
-      </a>
-    </div>
-  `
+        <a (click)="deleted.emit(item);$event.stopPropagation();" >
+          Delete
+        </a>
+      </li>
+    </ul>
+    `
 })
 export class ItemsList {
 
@@ -42,6 +58,5 @@ export class ItemsList {
   @Output() selected = new EventEmitter();
   @Output() deleted  = new EventEmitter();
 
+
 } // end ItemListComponent
-
-

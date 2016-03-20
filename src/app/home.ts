@@ -41,7 +41,7 @@ import { ItemDetail } from './components/item-detail.component';
   template: `
     <div class="row">
 
-      <div class="col-md-4">
+      <div class="col-md-6">
         <ItemsList
           [items]="items | async"
           (selected)="handleSelectItem( $event )"
@@ -49,7 +49,7 @@ import { ItemDetail } from './components/item-detail.component';
         </ItemsList>
       </div>
 
-      <div class="col-md-8">
+      <div class="col-md-6">
         <ItemDetail
           [item]="selectedItem | async"
           (saved)="handleSaveItem( $event )"
@@ -92,7 +92,7 @@ export class Home {
    * @param {Item} item
    */
   handleSelectItem( item:Item ) {
-
+    console.log("handleSelectItem");
     this.store.dispatch({
       type:    'SELECT_ITEM',
       payload: item
@@ -104,7 +104,7 @@ export class Home {
    * @param {Item} item
    */
   handleDeleteItem( item:Item ) {
-
+    console.log("handleDeleteItem");
     // Notify the ItemsService instance of the event and let it delete the item.
     this.itemsService.deleteItem( item );
   }

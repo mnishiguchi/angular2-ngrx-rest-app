@@ -15,9 +15,9 @@ Benefits of using Redux:
  */
 
 
-//============================================
+//=========================================================
 //  Define AppStore.
-//============================================
+//=========================================================
 
 
 /**
@@ -31,9 +31,9 @@ export interface AppStore {
 }
 
 
-//============================================
+//=========================================================
 //  Define actions.
-//============================================
+//=========================================================
 
 
 // export const ADD_ITEMS   = 'ADD_ITEMS';
@@ -42,9 +42,9 @@ export interface AppStore {
 // export const DELETE_ITEM = 'DELETE_ITEM';
 
 
-//============================================
+//=========================================================
 //  Define reducers.
-//============================================
+//=========================================================
 
 
 /**
@@ -54,29 +54,26 @@ export const items:Reducer<any> = ( state:any, { type, payload } ) => {
 
   switch ( type ) {
 
-    // Returns whatever collection we pass in as the new array.
     case 'ADD_ITEMS':
+      // Return whatever collection we pass in as the new array.
       return payload;
 
-    // Returns a new array by concatenating the existing items with the new item.
     case 'CREATE_ITEM':
+      // Return a new array by concatenating the existing items with the new item.
       return [ ...state, payload ];
 
-    // Returns a new array by mapping through the current array, finding the item
-    // we want to update and cloning a new object using Object.assign.
     case 'UPDATE_ITEM':
-      return state.map( item => {
-        return ( item.id === payload )
-                ? Object.assign( {}, item, payload )
-                : item
-                ;
-      });
+      // Search for the item to be updated in the collection,
+      // clone that item and updete its properties.
+      // Then return the updated object.
+      return state.map( item => ( item.id === payload.id )
+                                    ? Object.assign( {}, item, payload )
+                                    : item
+      );
 
-    // Returns a new array by filtering out the item that we want to delete.
     case 'DELETE_ITEM':
-      return state.filter( item => {
-        return item.id !== payload.id;
-      });
+      // Return a new array by filtering out the item that we want to delete.
+      return state.filter( item => item.id !== payload.id );
 
     default:
       return state;
@@ -90,7 +87,7 @@ export const selectedItem:Reducer<any> = ( state:any=null, { type, payload } ) =
 
   switch ( type ) {
 
-    case 'SELECTED_ITEM':
+    case 'SELECT_ITEM':
       return payload;
 
     default:
@@ -100,9 +97,9 @@ export const selectedItem:Reducer<any> = ( state:any=null, { type, payload } ) =
 };
 
 
-//============================================
+//=========================================================
 //  Create a Provider to register store and reducers.
-//============================================
+//=========================================================
 
 
 // Use the provideStore(reducers, initialState) function to create a Provider to
@@ -115,4 +112,3 @@ let initialState = {
 };
 
 export const STORE = provideStore( reducers, initialState );
-

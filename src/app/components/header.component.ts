@@ -6,8 +6,10 @@ import { Component } from 'angular2/core';
   styles: [``],
   template: `
     <header>
-      <nav class="navbar navbar-light bg-faded">
-        <h1 class="navbar-brand">{{ title }}</h1>
+      <nav class="navbar navbar-dark" style="background-color: #555;">
+        <div class="container">
+          <h1 class="navbar-brand">{{ title }}</h1>
+        </div>
       </nav>
     </header>
   `

@@ -2,11 +2,20 @@ import { Component } from 'angular2/core';
 
 @Component({
   selector: 'Footer',
+  styles: [`
+    footer {
+      background-color: #333;
+      padding: 40px 0;
+    }
+    footer a {
+      color: white;
+    }
+  `],
   template: `
     <footer>
-      <nav class="navbar navbar-light bg-faded">
+      <div class="container">
         <a [href]="url">Masatoshi Nishiguchi</a>
-      </nav>
+      </div>
     </footer>
   `
 })

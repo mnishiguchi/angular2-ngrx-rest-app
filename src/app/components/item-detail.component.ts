@@ -19,7 +19,7 @@ import { ItemsService }       from '../services/items.service';
   template: `
     <div class="card card-block">
       <div class="card-title">
-        <h2 *ngIf="selectedItem.id">Editing {{ originalName }}</h2>
+        <h2 *ngIf="selectedItem.id">Edit {{ originalName }}</h2>
         <h2 *ngIf="!selectedItem.id">Create New Item</h2>
       </div>
 

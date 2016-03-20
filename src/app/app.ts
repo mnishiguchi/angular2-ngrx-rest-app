@@ -15,7 +15,7 @@ import { AppStore }     from './store';
 
 // Import Directives/Components.
 import { Header }     from './components/header.component';
-import { Home }  from './home';
+import { Home }       from './home';
 import { Footer }     from './components/footer.component';
 
 /*
@@ -30,16 +30,19 @@ import { Footer }     from './components/footer.component';
     Home,
     Footer
    ],
-  styles: [``],
+  styles: [`
+    #main-container {
+      min-height: 500px;
+      margin: 40px auto;
+    }
+  `],
   template: `
     <Header></Header>
-
-    <div class="container">
+    <div class="container" id="main-container">
       <main>
         <router-outlet></router-outlet>
       </main>
     </div>
-
     <Footer></Footer>
   `
 })

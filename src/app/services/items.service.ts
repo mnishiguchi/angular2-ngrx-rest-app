@@ -18,13 +18,13 @@ export class ItemsService {
   /**
    * @param {Store<AppStore>} store
    */
-  constructor( private store: Store< AppStore > ) {
+  constructor( private store:Store< AppStore > ) {
 
     // Bind the store's items to that of ItemsService.
     // The select method returns an observable with our collection in it.
     this.items = store.select( 'items' );
 
-  }
+  } // end constructor
 
 
   /**
@@ -33,12 +33,12 @@ export class ItemsService {
   loadItems() {
     let initialItems: Item[] = [
       {
-        id:          0,
+        id:          111,
         name:        'Masatoshi',
         description: 'programmer'
       },
       {
-        id:          1,
+        id:          222,
         name:        "Christine",
         description: "pretty"
       }
@@ -52,66 +52,66 @@ export class ItemsService {
     //   .map(res => res.json())
     //   .map(payload => ({ type: 'ADD_ITEMS', payload }))
     //   .subscribe(action => this.store.dispatch(action));
-  }
+  } // end loadItems
 
 
   /**
    * Delete the specified item.
    * @param {Item} item
    */
-  deleteItem( item: Item ) {
-
+  deleteItem( item:Item ) {
     // Dispatch the DELETE_ITEM action.
     this.store.dispatch({
-      type: 'DELETE_ITEM',
+      type:    'DELETE_ITEM',
       payload: item
     })
-  }
+  } // end deleteItem
 
   /**
    * If the item is not already registered, create it.
    * If the item already exists in the list, update it.
-   * Save the specified item.
+   * Then save the item .
    * @param {Item} item
    */
-  saveItem( item: Item ) {
-    // Determine the item's registration status by the existence of item id.
+  saveItem( item:Item ) {
+    // Determine the item's registration status by the existence of item id
+    // assuming that only registered items have an item id.
     ( item.id ) ? this.updateItem( item )
                 : this.createItem( item )
                 ;
-  }
+  } // end saveItem
 
   /**
    * Register the item to the list.
    * @param {Item} item [description]
    */
-  createItem( item: Item ) {
+  createItem( item:Item ) {
     // Generate a UUID for the item and dispatch the CREATE_ITEM action.
     this.store.dispatch({
       type:    'CREATE_ITEM',
       payload: this.addUUID( item )
     });
-  }
+  } // end createItem
 
   /**
    * Update the item in the list.
    * @param {Item} item [description]
    */
-  updateItem( item: Item ) {
+  updateItem( item:Item ) {
     // Dispatch the UPDATE_ITEM action.
     this.store.dispatch({
       type:    'UPDATE_ITEM',
       payload: item
     })
-  }
+  } // end updateItem
 
   /**
    * Utility functon to simulate server generated IDs.
    * @param  {Item} item
    * @return {Item}
    */
-  private addUUID( item: Item ): Item {
-    return (<any>Object).assign( {}, item, { id: this.generateUUID() } );
+  private addUUID( item:Item ): Item {
+    return Object.assign( {}, item, { id: this.generateUUID() } );
   }
   private generateUUID(): string {
     return ( '' + 1e7 + -1e3 + -8e3 + -1e11 ).replace( /1|0/g, () => {
