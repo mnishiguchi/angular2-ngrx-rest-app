@@ -8,6 +8,7 @@ import {
   ChangeDetectionStrategy
 } from 'angular2/core';
 
+// Import necessary things for ngrx.
 import { Observable } from 'rxjs/Observable';
 import { Store }      from '@ngrx/store';
 
@@ -72,16 +73,15 @@ export class Home {
                private store:Store< AppStore > ) {
 
     // Bind to the items observable of the ItemsService.
-    this.items        = itemsService.items;
+    this.items = itemsService.items;
 
     // Bind to the selectedItem observable of the AppStore.
     this.selectedItem = store.select( 'selectedItem' );
 
-    // Log.
+    // Log a selected item when updated.
     this.selectedItem.subscribe( v => console.log( v ) );
 
-    // Dispatch ADD_ITEMS action to the store, which in turn
-    // updates the items.
+    // Dispatch ADD_ITEMS action to the store, which in turn updates the items.
     this.itemsService.loadItems();
   }
 

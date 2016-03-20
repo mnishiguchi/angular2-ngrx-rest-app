@@ -1,9 +1,17 @@
-import { Injectable }   from 'angular2/core';
-import { Store }        from '@ngrx/store';
-import { Observable }   from 'rxjs/Observable';
+import { Injectable }    from 'angular2/core';
+import { Store }         from '@ngrx/store';
+import { Observable }    from 'rxjs/Observable';
+import { Http, Headers, Response } from 'angular2/http';
 
-import { Item }         from '../models/item.model';
-import { AppStore }     from '../store';
+import { Item }          from '../models/item.model';
+import { AppStore }      from '../store';
+
+
+/*
+ * This may not be necessary depending on what backend you are using.
+ */
+const BASE_URL = 'http://localhost:3000/app/data.json';
+const HEADER   = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
 
 /**
@@ -13,13 +21,14 @@ import { AppStore }     from '../store';
 export class ItemsService {
 
   // Expose the items.
-  items: Observable< Array < Item > >;
+  items:Observable< Array < Item > >;
 
   /**
-   * @param {Store<AppStore>} store
+   * @param  {Http}
+   * @param  {Store<AppStore>}
    */
-  constructor( private store:Store< AppStore > ) {
-
+  constructor( private http:Http,
+               private store:Store< AppStore > ) {
     // Bind the store's items to that of ItemsService.
     // The select method returns an observable with our collection in it.
     this.items = store.select( 'items' );
@@ -31,41 +40,23 @@ export class ItemsService {
    * Load initial items.
    */
   loadItems() {
-    let initialItems: Item[] = [
-      {
-        id:          111,
-        name:        'Masatoshi',
-        description: 'programmer'
-      },
-      {
-        id:          222,
-        name:        "Christine",
-        description: "pretty"
-      }
-    ];
-    this.store.dispatch({
-      type:    'ADD_ITEMS',
-      payload: initialItems
-    });
 
-    // this.http.get(BASE_URL)
-    //   .map(res => res.json())
-    //   .map(payload => ({ type: 'ADD_ITEMS', payload }))
-    //   .subscribe(action => this.store.dispatch(action));
+    let successMsg = "Done loading items data from server";
+
+    this.http.get( BASE_URL )
+      // Parse the JSON.
+      .map( ( res:Response ) => res.json() )
+      // Create an event with the JSON as a payload.
+      .map( payload => ({ type: 'ADD_ITEMS', payload }) )
+      // Subscribe to it and then dispatch the transformed results.
+      .subscribe(
+        action => this.store.dispatch( action ) ,
+        error  => console.error( error ),
+        ()     => console.log( successMsg )
+      );
+
   } // end loadItems
 
-
-  /**
-   * Delete the specified item.
-   * @param {Item} item
-   */
-  deleteItem( item:Item ) {
-    // Dispatch the DELETE_ITEM action.
-    this.store.dispatch({
-      type:    'DELETE_ITEM',
-      payload: item
-    })
-  } // end deleteItem
 
   /**
    * If the item is not already registered, create it.
@@ -76,10 +67,9 @@ export class ItemsService {
   saveItem( item:Item ) {
     // Determine the item's registration status by the existence of item id
     // assuming that only registered items have an item id.
-    ( item.id ) ? this.updateItem( item )
-                : this.createItem( item )
-                ;
+    ( item.id ) ? this.updateItem( item ) : this.createItem( item ) ;
   } // end saveItem
+
 
   /**
    * Register the item to the list.
@@ -93,6 +83,7 @@ export class ItemsService {
     });
   } // end createItem
 
+
   /**
    * Update the item in the list.
    * @param {Item} item [description]
@@ -103,7 +94,41 @@ export class ItemsService {
       type:    'UPDATE_ITEM',
       payload: item
     })
+
+    // this.http.put(
+    //     `${BASE_URL}${item.id}`,
+    //     JSON.stringify( item ),
+    //     HEADER
+    //   )
+    //   .subscribe( action => this.store.dispatch({
+    //       type:    'UPDATE_ITEM',
+    //       payload: item
+    //     })
+    //   );
+
   } // end updateItem
+
+
+  /**
+   * Delete the specified item.
+   * @param {Item} item
+   */
+  deleteItem( item:Item ) {
+    // Dispatch the DELETE_ITEM action.
+    this.store.dispatch({
+      type:    'DELETE_ITEM',
+      payload: item
+    })
+
+    // this.http.delete( `${BASE_URL}${item.id}` )
+    //   .subscribe( action => this.store.dispatch({
+    //       type:    'DELETE_ITEM',
+    //       payload: item
+    //     })
+    //   );
+
+  } // end deleteItem
+
 
   /**
    * Utility functon to simulate server generated IDs.

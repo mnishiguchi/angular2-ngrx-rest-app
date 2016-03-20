@@ -1,15 +1,18 @@
 # angular2-ngrx-rest-app
 
 - Built upon [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter) by AngularClass.
-- Based on the tutorials:
+- Reference
     + [Build a Better Angular 2 Application with Redux and ngrx](http://onehungrymind.com/build-better-angular-2-application-redux-ngrx/)
     by Lukas Ruebbelke
     + [Adding Redux with NgRx/Store to Angular 2](http://orizens.com/wp/topics/adding-redux-with-ngrxstore-to-angular-2-part-1/) by Oren Farhi
+    + [Angular 2: HTTP, Observables, and concurrent data loading](http://www.metaltoad.com/blog/angular-2-http-observables)
 
 ==
 
 ## Check for the latest recommended configuration
 - https://angular.io/docs/ts/latest/quickstart.html
+
+==
 
 ## File structure
 
@@ -91,6 +94,3 @@ export class ItemDetails {
     @Output() cancelled = new EventEmitter();
 }
 ```
-
-
- 

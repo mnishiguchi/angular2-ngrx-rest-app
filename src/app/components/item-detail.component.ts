@@ -26,7 +26,7 @@ import { ItemsService }       from '../services/items.service';
       <form novalidate>
 
         <fieldset class="form-group">
-          <label>Item Name</label>
+          <label>Name</label>
           <input type="text"
             [(ngModel)]="selectedItem.name"
             placeholder="Enter a name"
@@ -34,7 +34,7 @@ import { ItemsService }       from '../services/items.service';
         </fieldset>
 
         <fieldset class="form-group">
-          <label>Item Description</label>
+          <label>Description</label>
           <input type="text"
             [(ngModel)]="selectedItem.description"
             placeholder="Enter a description"
@@ -43,13 +43,11 @@ import { ItemsService }       from '../services/items.service';
 
         <fieldset class="form-group">
           <button type="button"
-            (click)="cancelled.emit(selectedItem)"
-            class="btn btn-secondary">
+            (click)="cancelled.emit(selectedItem)" >
             Cancel
           </button>
           <button type="submit"
-            (click)="saved.emit(selectedItem)"
-            class="btn btn-secondary">
+            (click)="saved.emit(selectedItem)" >
             Save
           </button>
         </fieldset>

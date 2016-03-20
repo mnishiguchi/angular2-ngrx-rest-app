@@ -25,8 +25,8 @@ Benefits of using Redux:
  */
 export interface AppStore {
 
-  items:Item[];
-  selectedItem:Item;
+  items: Item[];
+  selectedItem: Item;
 
 }
 
@@ -50,7 +50,7 @@ export interface AppStore {
 /**
  * A reducer to perform actions on our list of items.
  */
-export const items:Reducer<any> = ( state:any, { type, payload } ) => {
+export const items: Reducer<any> = ( state: any, { type, payload } ) => {
 
   switch ( type ) {
 
@@ -83,7 +83,7 @@ export const items:Reducer<any> = ( state:any, { type, payload } ) => {
 /**
  * A reducer to handle the currently selected item.
  */
-export const selectedItem:Reducer<any> = ( state:any=null, { type, payload } ) => {
+export const selectedItem: Reducer<any> = ( state: any=null, { type, payload } ) => {
 
   switch ( type ) {
 
